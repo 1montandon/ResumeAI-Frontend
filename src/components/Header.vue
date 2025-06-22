@@ -15,8 +15,8 @@ import Button from './Button.vue';
         <li class="font-medium text-[#0D141C]">Pricing</li>
         <li class="font-medium text-[#0D141C]">Resources</li>
         <li class="flex flex-row gap-5">
-          <Button text="Teste" type="primary" to="/"></Button>
-           <Button text="Teste" type="secundary" to="/"></Button>
+          <Button text="Get started" type="primary" to="/"></Button>
+           <Button text="Log in" type="secundary" to="/login"></Button>
       </li>
       </ul>
     </nav>
