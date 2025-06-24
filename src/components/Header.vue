@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import Button from './Button.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
+function handleClick(){
+  router.push('/')
+}
 </script>
 
 <template>
   <header class="w-screen bg-white border-b border-[#E5E8EB] ">
     <div class="flex h-18  items-center justify-between px-12 ">
-    <div class="w-36 flex flex-row items-center gap-2">
+    <div class="w-36 flex flex-row items-center gap-2 cursor-pointer" @click="handleClick()">
       <img class="w-4" src="../../public/logo.png" alt="">
       <h1 class="text-lg font-bold">Resume AI</h1>
     </div>
