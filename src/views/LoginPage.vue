@@ -7,7 +7,7 @@ import Button from '@/components/Button.vue';
 <div class="h-screen flex items-center justify-center bg-red">
   <div class="flex flex-col w-md">
     <h1 class="text-4xl font-bold text-[#0D141C]">Log in to your account</h1>
-    <form action="" class="flex flex-col">
+    <form action="" class="flex flex-col justify-center items-center">
       <div>
         <label for="" class="text-[#0D141C]">Email</label>
         <input type="email" class="w-md h-10 border-2 border-[#CFDBE8] rounded-lg p-6 placeholder-[#4A739C]" placeholder="Email">
@@ -17,7 +17,10 @@ import Button from '@/components/Button.vue';
         <input type="password" class="w-md h-10 border-2 border-[#CFDBE8] rounded-lg p-6 placeholder-[#4A739C]" placeholder="Password">
       </div>
       <p>Forgot passoword?</p>
-      <Button text="Log In" ></Button>
+      <div class="flex">
+              <Button text="Log In" ></Button>
+
+      </div>
       <p>Dont have and account? Sign Up</p>
     </form>
   </div>
