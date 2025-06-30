@@ -6,7 +6,7 @@ import Button from '@/components/Button.vue';
 <Header></Header>
 <div class="flex flex-col px-60 h-svh items-center justify-center gap-8">
   <div class="md:w-3xl text-center">
-    <h1 class="md:text-6xl font-black text-[#0D141C]">
+    <h1 class="md:text-6xl  font-black text-[#0D141C]">
       Unlock Your Career Potential with ResumeAI!
     </h1>
   </div>

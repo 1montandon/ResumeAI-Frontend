@@ -1,0 +1,59 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth'; // Adjust path if needed
+import { useRouter } from 'vue-router';
+import Header from '@/components/Header.vue';
+import Button from '@/components/Button.vue';
+
+const email = ref('');
+const password = ref('');
+const authStore = useAuthStore();
+const router = useRouter();
+
+const handleLogin = async () => {
+  try {
+    await authStore.loginUser({username: email.value, password: password.value});
+    // router.push('/'); // Redirect after login, adjust as needed
+  } catch (error) {
+    // Handle error (show message, etc.)
+    alert('Login failed. Please check your credentials.');
+  }
+};
+</script>
+
+<template>
+  <Header></Header>
+  <div class="flex flex-col px-60 h-svh items-center justify-center ">
+    <form @submit.prevent="handleLogin" class="flex flex-col justify-center items-center gap-6 w-md">
+      <h1 class="text-4xl font-bold text-[#0D141C]">Log in to your account</h1>
+      {{ authStore.state }}
+      <div class="flex flex-col gap-2">
+        <label for="email" class="text-[#0D141C]">Email</label>
+        <input
+          id="email"
+          v-model="email"
+          type="text"
+          class="w-md h-10 border-2 text-[#0D141C] border-[#CFDBE8] rounded-lg px-4 py-6 placeholder-[#4A739C]"
+          placeholder="Email"
+          required
+        >
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="password" class="text-[#0D141C]">Password</label>
+        <input
+          id="password"
+          v-model="password"
+          type="password"
+          class="w-md h-10 border-2 text-[#0D141C] border-[#CFDBE8] rounded-lg px-4 py-6 placeholder-[#4A739C]"
+          placeholder="Password"
+          required
+        >
+      </div>
+      <p class="text-[#4A739C]">Forgot password?</p>
+      <Button text="Log In" block></Button>
+      <p class="text-[#4A739C]">
+        Dont have an account? <router-link to="/register">Sign Up</router-link>
+      </p>
+    </form>
+  </div>
+</template>
