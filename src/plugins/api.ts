@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://resumeia-backend.vercel.app/api/',
+  baseURL: 'https://resumeai-api.onrender.com/api/',
 });
 
 export function setupAxios(){
