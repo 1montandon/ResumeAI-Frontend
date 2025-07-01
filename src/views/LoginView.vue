@@ -5,17 +5,18 @@ import { useRouter } from 'vue-router';
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
-const email = ref('');
+const username = ref('');
 const password = ref('');
 const authStore = useAuthStore();
 const router = useRouter();
 
 const handleLogin = async () => {
   try {
-    await authStore.loginUser({username: email.value, password: password.value});
-    // router.push('/'); // Redirect after login, adjust as needed
+    await authStore.loginUser({username: username.value, password: password.value});
+    alert("Login successful! Redirecting to home page...");
   } catch (error) {
     // Handle error (show message, etc.)
+    alert(error)
     alert('Login failed. Please check your credentials.');
   }
 };
@@ -26,15 +27,15 @@ const handleLogin = async () => {
   <div class="flex flex-col px-60 h-svh items-center justify-center ">
     <form @submit.prevent="handleLogin" class="flex flex-col justify-center items-center gap-6 w-md">
       <h1 class="text-4xl font-bold text-[#0D141C]">Log in to your account</h1>
-      {{ authStore.state }}
+      {{ authStore.user}} {{ authStore.isLogged }}
       <div class="flex flex-col gap-2">
-        <label for="email" class="text-[#0D141C]">Email</label>
+        <label for="username" class="text-[#0D141C]">Username</label>
         <input
-          id="email"
-          v-model="email"
+          id="username"
+          v-model="username"
           type="text"
           class="w-md h-10 border-2 text-[#0D141C] border-[#CFDBE8] rounded-lg px-4 py-6 placeholder-[#4A739C]"
-          placeholder="Email"
+          placeholder="username"
           required
         >
       </div>

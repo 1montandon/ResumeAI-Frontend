@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
+import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+const authStore = useAuthStore()
+const route = ref('')
+if(authStore.isLogged){
+  route.value = "/"
+}
+else{
+  route.value = '/login'
+}
 </script>
 <template>
 <Header></Header>
@@ -15,7 +25,7 @@ import Button from '@/components/Button.vue';
     Our AI-powered platform analyzes your resume against job descriptions, providing actionable insights to enhance your application and increase your chances of landing your dream job.
   </p>
   </div>
-  <Button type="primary" to="/" text="Analyze Now"></Button>
+  <Button type="primary" :to="route" text="Analyze Now"></Button>
 </div>
 </template>
 
