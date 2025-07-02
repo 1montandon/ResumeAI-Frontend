@@ -13,6 +13,7 @@ const router = useRouter();
 const handleLogin = async () => {
   try {
     await authStore.loginUser({username: username.value, password: password.value});
+    router.push('/dashboard')
     alert("Login successful! Redirecting to home page...");
   } catch (error) {
     // Handle error (show message, etc.)
@@ -27,7 +28,6 @@ const handleLogin = async () => {
   <div class="flex flex-col px-60 h-svh items-center justify-center ">
     <form @submit.prevent="handleLogin" class="flex flex-col justify-center items-center gap-6 w-md">
       <h1 class="text-4xl font-bold text-[#0D141C]">Log in to your account</h1>
-      {{ authStore.user}} {{ authStore.isLogged }}
       <div class="flex flex-col gap-2">
         <label for="username" class="text-[#0D141C]">Username</label>
         <input

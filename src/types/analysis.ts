@@ -11,7 +11,7 @@ export interface Analysis {
 }
 export interface CreateAnalysis{
   description: string,
-  resume: File
+  resume: File | null;
 }
 
 export interface ParsedAnalysis {
