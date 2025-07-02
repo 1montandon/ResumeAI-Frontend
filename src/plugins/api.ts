@@ -1,7 +1,9 @@
 import axios from "axios";
 
+// Replace with your environment variable, e.g.,
+// import.meta.env.VITE_API_URL for Vite or process.env.REACT_APP_API_URL for CRA
 const api = axios.create({
-  baseURL: 'https://resumeai-api.onrender.com/api/',
+  baseURL: import.meta.env.VITE_API_URL
 });
 
 export function setupAxios(){
@@ -20,4 +22,5 @@ export function setupAxios(){
   );
 }
 
+  console.log(api)
   export default api

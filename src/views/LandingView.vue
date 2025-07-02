@@ -6,7 +6,7 @@ import { useAuthStore } from '@/stores/auth';
 const authStore = useAuthStore()
 const route = ref('')
 if(authStore.isLogged){
-  route.value = "/"
+  route.value = "/dashboard"
 }
 else{
   route.value = '/login'

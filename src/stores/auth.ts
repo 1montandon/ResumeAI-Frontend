@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import AuthService from "@/services/auth";
 import type { LoginUserDTO, RegisterUserDTO } from "@/types/auth";
+import { useAnalysisStore } from "./analysis";
 
 const authService = AuthService;
 export const useAuthStore = defineStore('auth', () => {
@@ -82,7 +83,15 @@ export const useAuthStore = defineStore('auth', () => {
       state.isLoading = false
     }
   }
+  // dentro do método onde for usar:
+  const logout = () => {
+    const analysisStore = useAnalysisStore() // ✅ aqui pode
+    analysisStore.clearAnalyses()
+    clearToken()
+    state.user.value = {}
+  }
 
 
-  return { loginUser, registerUser, getMeUser, user, token, isLoading, isLogged, state }
+
+  return { loginUser, registerUser, getMeUser, user, token, isLoading, isLogged, state, logout }
 })

@@ -2,17 +2,21 @@
 import { computed } from 'vue';
 import Button from './Button.vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
 
 const router = useRouter()
-
+const authStore = useAuthStore()
 function handleClick(){
   router.push('/')
 }
 
 // Example isLogged check (replace with your actual auth logic)
 const isLogged = computed(() => {
-  return !!localStorage.getItem('access');
+  return authStore.isLogged;
 });
+function logout(){
+  authStore.logout();
+}
 </script>
 
 <template>
@@ -34,7 +38,7 @@ const isLogged = computed(() => {
             </template>
             <template v-else>
               <Button text="Dashboard" type="primary" to="/dashboard"></Button>
-              <Button text="Log out" type="secundary" @click="() => { localStorage.removeItem('token'); router.push('/'); }"></Button>
+              <Button text="Log out" type="secundary" @click="logout()"></Button>
             </template>
           </li>
         </ul>
