@@ -8,8 +8,8 @@ import router from './router'
 import { setupAxios } from './plugins/api'
 
 const app = createApp(App)
-
 app.use(createPinia())
+
 setupAxios()
 app.use(router)
 

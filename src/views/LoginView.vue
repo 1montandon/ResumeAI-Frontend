@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth'; // Adjust path if needed
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import Header from '@/components/Header.vue';
 import Button from '@/components/Button.vue';
 
@@ -9,15 +9,18 @@ const username = ref('');
 const password = ref('');
 const authStore = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 
 const handleLogin = async () => {
   try {
     await authStore.loginUser({username: username.value, password: password.value});
-    router.push('/dashboard')
-    alert("Login successful! Redirecting to home page...");
+    // 👇 Verifica se há redirecionamento salvo
+    const redirect = route.query.redirect as string || '/dashboard'; // fallback opcional
+
+    router.push(redirect);
+    alert("Login successful! Redirecting...");
   } catch (error) {
     // Handle error (show message, etc.)
-    alert(error)
     alert('Login failed. Please check your credentials.');
   }
 };

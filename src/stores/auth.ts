@@ -7,34 +7,34 @@ import { useAnalysisStore } from "./analysis";
 
 const authService = AuthService;
 export const useAuthStore = defineStore('auth', () => {
-  const state = {
+  const state = reactive({
     user: useStorage('user', {}),
     access: useStorage('access', ''),
     isLoading: false,
     isLogged: useStorage('isLogged', false),
-  }
+  })
 
 
   const user = computed(() =>
-    state.user.value
+    state.user
   )
   const token = computed(() =>
-    state.access.value
+    state.access
   )
   const isLoading = computed(() =>
     state.isLoading
   )
   const isLogged = computed(() =>
-    state.isLogged.value
+    state.isLogged
   )
 
   const clearToken = () => {
-    state.access.value = ''
-    state.isLogged.value = false
+    state.access = ''
+    state.isLogged = false
   }
   const setToken = (token: string) => {
-    state.access.value = token
-    state.isLogged.value = true
+    state.access = token
+    state.isLogged = true
   }
 
   const loginUser = async (user: LoginUserDTO) => {
@@ -49,8 +49,8 @@ export const useAuthStore = defineStore('auth', () => {
       console.log(error)
       clearToken()
     } finally {
-      state.user.value = await authService.getMeUser()
-      state.isLogged.value = true
+      state.user = await authService.getMeUser()
+      state.isLogged = true
       state.isLoading = false
     }
   }
@@ -75,7 +75,7 @@ export const useAuthStore = defineStore('auth', () => {
     state.isLoading = true
     try {
       const response = await authService.getMeUser()
-      state.user.value = response
+      state.user = response
       return response
     } catch (error) {
       console.log(error)
@@ -88,7 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
     const analysisStore = useAnalysisStore() // ✅ aqui pode
     analysisStore.clearAnalyses()
     clearToken()
-    state.user.value = {}
+    state.user = {}
   }
 
 

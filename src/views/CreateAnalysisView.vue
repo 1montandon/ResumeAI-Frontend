@@ -54,7 +54,7 @@ async function createAnalysis() {
   <div class="flex flex-col px-60 h-svh justify-start gap-8 mt-10 ">
 
           <h1 class="font-bold text-3xl self-center">Upload Your Resume and Job Description</h1>
-          <p class="text-[#0D141C]">Drag and drop your files here, or click to select them from your computer. We support PDF, DOC, and DOCX formats.</p>
+          <p class="text-[#0D141C] self-center">Drag and drop your files here, or click to select them from your computer. We support PDF, DOC, and DOCX formats.</p>
 
     <div class="flex flex-col gap-3">
       <div v-if="analysisToCreate.resume == null" class="w-full h-56 flex flex-col justify-center items-center border-dashed border-2 border-[#CFDBE8] rounded-lg " ref="dropZoneRef">

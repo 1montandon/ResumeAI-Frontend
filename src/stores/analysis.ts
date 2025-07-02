@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import AnalysisService from "@/services/analysis";
@@ -7,16 +7,16 @@ import type { Analysis, CreateAnalysis, ParsedAnalysis } from "@/types/analysis"
 const analysisService = AnalysisService;
 
 export const useAnalysisStore = defineStore('analysis', () => {
-  const state = {
-    analyses: useStorage<Analysis[]>('analyses', []),
+  const state = reactive({
+    analyses: [] as Analysis[],
     isLoading: false,
-  }
+  })
 
-  const analyses = computed(() => state.analyses.value);
+  const analyses = computed(() => state.analyses);
   const isLoading = computed(() => state.isLoading);
 
   const clearAnalyses = () => {
-    state.analyses.value = [];
+    state.analyses = [];
   }
 
 //   function parseAnalyses(data: Analysis[]): ParsedAnalysis[] {
@@ -37,8 +37,7 @@ export const useAnalysisStore = defineStore('analysis', () => {
     state.isLoading = true;
     try {
       const response = await analysisService.getAnalyses();
-      console.log(response)
-      state.analyses.value = response;
+      state.analyses = response;
       return response;
     } catch (error) {
       console.log(error);
@@ -51,7 +50,9 @@ export const useAnalysisStore = defineStore('analysis', () => {
     state.isLoading = true;
     try {
       const formData = new FormData();
-      formData.append('resume', analysis.resume);
+      if (analysis.resume) {
+        formData.append('resume', analysis.resume);
+      }
       formData.append('description', analysis.description);
       console.log(formData)
 

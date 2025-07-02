@@ -16,6 +16,8 @@ const isLogged = computed(() => {
 });
 function logout(){
   authStore.logout();
+  alert('Logged Out. Redirecting to home page...');
+  router.push('/')
 }
 </script>
 
