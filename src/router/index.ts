@@ -30,13 +30,13 @@ const router = createRouter({
     },
       {
       path: '/analysis',
-      name: 'analysis',
+      name: 'create-analysis',
       component: () => import('@/views/CreateAnalysisView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/analysis/:id',
-      name: 'analysis',
+      name: 'view-analysis',
       component: () => import('@/views/AnalysisView.vue'),
       props: true,
       meta: { requiresAuth: true },
