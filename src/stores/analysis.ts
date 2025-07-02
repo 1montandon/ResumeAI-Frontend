@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import AnalysisService from "@/services/analysis";
 import type { Analysis, CreateAnalysis, ParsedAnalysis } from "@/types/analysis";
+import analysis from "@/services/analysis";
 
 const analysisService = AnalysisService;
 
@@ -10,10 +11,12 @@ export const useAnalysisStore = defineStore('analysis', () => {
   const state = reactive({
     analyses: [] as Analysis[],
     isLoading: false,
+    analysis: null as Analysis | null,
   })
 
   const analyses = computed(() => state.analyses);
   const isLoading = computed(() => state.isLoading);
+  const analysis = computed(() => state.analysis)
 
   const clearAnalyses = () => {
     state.analyses = [];
@@ -66,8 +69,20 @@ export const useAnalysisStore = defineStore('analysis', () => {
       state.isLoading = false;
     }
   }
-
-  return { analyses, isLoading, getAnalyses, clearAnalyses, state , createAnalysis};
+  const getAnalysisById = async (id: string | number) => {
+    state.isLoading = true;
+    try {
+      const response = await analysisService.getAnalysisById(id);
+      state.analysis = response;
+      return response;
+    } catch (error) {
+      console.log(error);
+      state.analysis = null;
+    } finally {
+      state.isLoading = false;
+    }
+  };
+  return { analyses, isLoading, getAnalyses, clearAnalyses, state , createAnalysis, getAnalysisById, analysis};
 });
 
 

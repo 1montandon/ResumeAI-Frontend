@@ -37,7 +37,8 @@ const router = createRouter({
     {
       path: '/analysis/:id',
       name: 'analysis',
-      component: () => import('@/views/CreateAnalysisView.vue'),
+      component: () => import('@/views/AnalysisView.vue'),
+      props: true,
       meta: { requiresAuth: true },
     },
   ],

@@ -20,6 +20,17 @@ class AnalysisService {
     }catch(error){
       throw error
     }
-  }}
+  }
+  async getAnalysisById(analysisId: string | number): Promise<Analysis>{
+    try {
+      const response = await api.get<Analysis>(`analysis/${analysisId}/`);
+      console.log(response)
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+}
 
 export default new AnalysisService()
