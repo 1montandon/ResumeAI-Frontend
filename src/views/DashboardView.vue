@@ -56,7 +56,7 @@ const compatibilityScore = computed(() =>
     <div class="flex flex-col gap-8 items-center">
       <h2 class="font-bold text-2xl self-start">Recent Analysis</h2>
       <div class="overflow-hidden rounded-lg border border-[#CFDBE8] w-full flex justify-center">
-        <table class="text-sm text-left w-[90%]">
+        <table class="text-sm text-left w-full">
           <thead class="text-xs text-[#0D141C] bg-[#F7FAFC]">
             <tr>
               <th class="px-6 py-3 text-center">Id</th>
