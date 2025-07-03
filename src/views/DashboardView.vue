@@ -12,14 +12,6 @@ onMounted(() => {
   analysisStore.getAnalyses()
 })
 
-async function fetchAnalyses() {
-  try {
-    const response = await analysisStore.getAnalyses()
-    console.log('Análises:', response)
-  } catch (err) {
-    console.error('Erro ao buscar análises:', err)
-  }
-}
 import { computed } from 'vue'
 
 const compatibilityScore = computed(() =>
@@ -32,7 +24,6 @@ const compatibilityScore = computed(() =>
   <div class="flex flex-col px-60 h-svh justify-start gap-8 mt-10">
     <div class="flex flex-col gap-3">
       <h1 class="font-bold text-3xl">Dashboard</h1>
-      {{ analysisStore.isLoading }}
       <p class="text-[#4A739C]">
         Welcome back {{ authStore.user.username }}, Here's a summary of your recent activity.
       </p>
