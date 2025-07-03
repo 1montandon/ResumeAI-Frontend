@@ -92,7 +92,9 @@ const compatibilityScore = computed(() =>
                   <p>{{ analysis.score * 100 }}%</p>
                 </div>
               </td>
-              <td class="px-6 py-8 font-medium text-[#0D141C] whitespace-nowrap">View Analysis</td>
+              <td class="px-6 py-8 font-medium text-[#0D141C] whitespace-nowrap">
+                <router-link :to="`/analysis/${analysis.id}`" class="text-blue-600 hover:underline">View Analysis</router-link>
+              </td>
             </tr>
           </tbody>
         </table>
