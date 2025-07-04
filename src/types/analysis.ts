@@ -1,27 +1,27 @@
 export interface Analysis {
-  id: string;
-  jobDescription: string;
-  score: number;
-  strengths: string;
-  weaknesses: string;
-  overview: string;
-  resumeUrl: string;
-  userId: string;
-  createdAt: Date;
+  id: string
+  jobDescription: string
+  score: number
+  strengths: string
+  weaknesses: string
+  overview: string
+  resumeUrl: string
+  userId: string
+  createdAt: Date
 }
-export interface CreateAnalysis{
-  description: string,
-  resume: File | null;
+export interface CreateAnalysis {
+  description: string
+  resume: File | null
 }
 
 export interface ParsedAnalysis {
-  id: string;
-  jobDescription: string;
-  score: number;
-  strengths: string[];
-  weaknesses: string[];
-  overview: string;
-  resumeUrl: string;
-  userId: string;
-  createdAt: Date;
-};
+  id: string
+  jobDescription: string
+  score: number
+  strengths: string[]
+  weaknesses: string[]
+  overview: string
+  resumeUrl: string
+  userId: string
+  createdAt: Date
+}

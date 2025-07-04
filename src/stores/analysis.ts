@@ -1,11 +1,11 @@
-import { computed, reactive } from "vue";
-import { defineStore } from "pinia";
-import { useStorage } from "@vueuse/core";
-import AnalysisService from "@/services/analysis";
-import type { Analysis, CreateAnalysis, ParsedAnalysis } from "@/types/analysis";
-import analysis from "@/services/analysis";
+import { computed, reactive } from 'vue'
+import { defineStore } from 'pinia'
+import { useStorage } from '@vueuse/core'
+import AnalysisService from '@/services/analysis'
+import type { Analysis, CreateAnalysis, ParsedAnalysis } from '@/types/analysis'
+import analysis from '@/services/analysis'
 
-const analysisService = AnalysisService;
+const analysisService = AnalysisService
 
 export const useAnalysisStore = defineStore('analysis', () => {
   const state = reactive({
@@ -14,75 +14,82 @@ export const useAnalysisStore = defineStore('analysis', () => {
     analysis: null as Analysis | null,
   })
 
-  const analyses = computed(() => state.analyses);
-  const isLoading = computed(() => state.isLoading);
+  const analyses = computed(() => state.analyses)
+  const isLoading = computed(() => state.isLoading)
   const analysis = computed(() => state.analysis)
 
   const clearAnalyses = () => {
-    state.analyses = [];
+    state.analyses = []
   }
 
-//   function parseAnalyses(data: Analysis[]): ParsedAnalysis[] {
-//   return data.map((item) => ({
-//     id: item.id,
-//     jobDescription: item.jobDescription,
-//     score: item.score,
-//     strengths: JSON.parse(item.strengths),
-//     weaknesses: JSON.parse(item.weaknesses),
-//     overview: item.overview,
-//     resumeUrl: item.resumeUrl,
-//     userId: item.userId,
-//     createdAt: new Date(item.createdAt),
-//   }));
-// }
+  //   function parseAnalyses(data: Analysis[]): ParsedAnalysis[] {
+  //   return data.map((item) => ({
+  //     id: item.id,
+  //     jobDescription: item.jobDescription,
+  //     score: item.score,
+  //     strengths: JSON.parse(item.strengths),
+  //     weaknesses: JSON.parse(item.weaknesses),
+  //     overview: item.overview,
+  //     resumeUrl: item.resumeUrl,
+  //     userId: item.userId,
+  //     createdAt: new Date(item.createdAt),
+  //   }));
+  // }
 
   const getAnalyses = async () => {
-    state.isLoading = true;
+    state.isLoading = true
     try {
-      const response = await analysisService.getAnalyses();
-      state.analyses = response;
-      return response;
+      const response = await analysisService.getAnalyses()
+      state.analyses = response
+      return response
     } catch (error) {
-      console.log(error);
-      clearAnalyses();
+      console.log(error)
+      clearAnalyses()
     } finally {
-      state.isLoading = false;
+      state.isLoading = false
     }
   }
   const createAnalysis = async (analysis: CreateAnalysis) => {
-    state.isLoading = true;
+    state.isLoading = true
     try {
-      const formData = new FormData();
+      const formData = new FormData()
       if (analysis.resume) {
-        formData.append('resume', analysis.resume);
+        formData.append('resume', analysis.resume)
       }
-      formData.append('description', analysis.description);
+      formData.append('description', analysis.description)
       console.log(formData)
 
-      const response = await analysisService.createAnalysis(formData);
+      const response = await analysisService.createAnalysis(formData)
       // Optionally update local state
-      await getAnalyses();
-      return response;
+      await getAnalyses()
+      return response
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
-      state.isLoading = false;
+      state.isLoading = false
     }
   }
   const getAnalysisById = async (id: string | number) => {
-    state.isLoading = true;
+    state.isLoading = true
     try {
-      const response = await analysisService.getAnalysisById(id);
-      state.analysis = response;
-      return response;
+      const response = await analysisService.getAnalysisById(id)
+      state.analysis = response
+      return response
     } catch (error) {
-      console.log(error);
-      state.analysis = null;
+      console.log(error)
+      state.analysis = null
     } finally {
-      state.isLoading = false;
+      state.isLoading = false
     }
-  };
-  return { analyses, isLoading, getAnalyses, clearAnalyses, state , createAnalysis, getAnalysisById, analysis};
-});
-
-
+  }
+  return {
+    analyses,
+    isLoading,
+    getAnalyses,
+    clearAnalyses,
+    state,
+    createAnalysis,
+    getAnalysisById,
+    analysis,
+  }
+})

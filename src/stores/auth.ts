@@ -1,11 +1,11 @@
-import { reactive, computed } from "vue";
-import { defineStore } from "pinia";
-import { useStorage } from "@vueuse/core";
-import AuthService from "@/services/auth";
-import type { LoginUserDTO, RegisterUserDTO } from "@/types/auth";
-import { useAnalysisStore } from "./analysis";
+import { reactive, computed } from 'vue'
+import { defineStore } from 'pinia'
+import { useStorage } from '@vueuse/core'
+import AuthService from '@/services/auth'
+import type { LoginUserDTO, RegisterUserDTO } from '@/types/auth'
+import { useAnalysisStore } from './analysis'
 
-const authService = AuthService;
+const authService = AuthService
 export const useAuthStore = defineStore('auth', () => {
   const state = reactive({
     user: useStorage('user', {}),
@@ -14,19 +14,10 @@ export const useAuthStore = defineStore('auth', () => {
     isLogged: useStorage('isLogged', false),
   })
 
-
-  const user = computed(() =>
-    state.user
-  )
-  const token = computed(() =>
-    state.access
-  )
-  const isLoading = computed(() =>
-    state.isLoading
-  )
-  const isLogged = computed(() =>
-    state.isLogged
-  )
+  const user = computed(() => state.user)
+  const token = computed(() => state.access)
+  const isLoading = computed(() => state.isLoading)
+  const isLogged = computed(() => state.isLogged)
 
   const clearToken = () => {
     state.access = ''
@@ -56,18 +47,16 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const registerUser = async (user: RegisterUserDTO) => {
-    clearToken();
-    state.isLoading = true;
+    clearToken()
+    state.isLoading = true
     try {
       const response = await authService.registerUser(user)
       // notify.success('Login realizado com sucesso!')
       return response
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error)
-    }
-    finally {
-      state.isLoading = false;
+    } finally {
+      state.isLoading = false
     }
   }
 
@@ -90,8 +79,6 @@ export const useAuthStore = defineStore('auth', () => {
     clearToken()
     state.user = {}
   }
-
-
 
   return { loginUser, registerUser, getMeUser, user, token, isLoading, isLogged, state, logout }
 })

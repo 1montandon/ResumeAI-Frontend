@@ -1,50 +1,59 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
-import Header from '@/components/Header.vue'
-import Button from '@/components/Button.vue'
+import { onMounted, computed } from 'vue'
+import Header from '@/components/HeaderComponent.vue'
+import Button from '@/components/ButtonComponent.vue'
 import { useAnalysisStore } from '@/stores/analysis'
-import type { Analysis } from '@/types/analysis'
+import analysis from '@/services/analysis';
 
 const props = defineProps<{ id: string | number }>()
 const analysisStore = useAnalysisStore()
 
-
-
 const compatibilityScore = computed(() =>
-  analysisStore.analysis ? (analysisStore.analysis.score * 100).toFixed(2) : '0.00'
+  analysisStore.analysis ? (analysisStore.analysis.score * 100) : 0,
 )
 
-onMounted(() =>{
-  analysisStore.getAnalysisById(props.id)
+const progressBarColor = computed(() => {
+  const score = compatibilityScore.value
+  if (score <= 50) return '#FF4D4F' // red
+  if (score <= 70) return '#FAAD14' // yellow
+  if (score <= 85) return '#52C41A' // green
+  return '#0D80F2' // blue
+})
+
+onMounted(() => {
+ analysisStore.getAnalysisById(props.id)
 })
 </script>
 
 <template>
   <Header />
-  <div class="flex flex-col px-60 h-svh justify-start gap-8 mt-10" >
+  <div class="flex flex-col px-60 h-svh justify-start gap-8 mt-10">
     <div class="flex flex-col gap-3">
-      <h1 class="font-bold text-3xl">Analysis #{{ analysisStore.analysis?.id }}</h1>
+      <h1 class="font-bold text-3xl text-[#0D141C]">Resume Analysis</h1>
       <p class="text-[#4A739C]">
-        Job Description: {{ analysisStore.analysis?.jobDescription }}
+        Review the compatibility analysis between your resume and the job description.
       </p>
-      <p class="text-[#4A739C]">
-        Overview: {{ analysisStore.analysis?.overview }}
-      </p>
-      <div class="w-80 h-24 b-1 rounded-xl border border-[#CFDBE8] p-6 mt-4">
-        <p class="font-medium text-base">Compatibility Score</p>
-        <h3 class="font-bold text-2xl">{{ compatibilityScore }} %</h3>
-        <div class="bg-[#CFDBE8] rounded-full h-2.5 w-24 mt-2">
-          <div
-            class="bg-[#0D80F2] h-2.5 rounded-full"
-            :style="{ width: compatibilityScore + '%' }"
-          ></div>
-        </div>
-      </div>
     </div>
-    <div class="flex justify-end">
-      <Button type="primary" to="/analysis" text="Back to Analyses" :block="false"></Button>
+    <div class="flex flex-col gap-3">
+      <div class="flex justify-between">
+        <h4 class="text-[#0D141C]">Compatibility Score</h4>
+        <h4 class="text-[#0D141C]">{{ compatibilityScore + '%' }}</h4>
+      </div>
+      <div class="bg-[#CFDBE8] rounded-full h-2.5 w-full">
+        <div
+          class="h-2.5 rounded-full"
+          :style="{ width: compatibilityScore + '%', backgroundColor: progressBarColor }"
+        ></div>
+      </div>
+      <p class="text-[#4A739C]">
+        Review the compatibility analysis between your resume and the job description.
+      </p>
+    </div>
+    <div class="flex flex-col gap-3" v-if="analysisStore.analysis && analysisStore.analysis.strengths">
+      <h2 class="font-bold text-2xl text-[#0D141C]">Strengths</h2>
+      <ul v-for="strength in JSON.parse(analysisStore.analysis.strengths)">
+        <li>{{ strength }}</li>
+      </ul>
     </div>
   </div>
-
 </template>

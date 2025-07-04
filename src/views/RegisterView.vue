@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth' // Adjust path if needed
 import { useRouter } from 'vue-router'
-import Header from '@/components/Header.vue'
-import Button from '@/components/Button.vue'
+import Header from '@/components/HeaderComponent.vue'
+import Button from '@/components/ButtonComponent.vue'
 
 const username = ref('')
 const email = ref('')
@@ -17,8 +17,8 @@ const handleRegister = async () => {
       password: password.value,
       email: email.value,
     })
-    alert("Register successful! Redirecting to login page...");
-    router.push('/login');
+    alert('Register successful! Redirecting to login page...')
+    router.push('/login')
   } catch (error) {
     alert('Erro ao registrar.')
   }

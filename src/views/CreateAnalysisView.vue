@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
-import Header from '@/components/Header.vue'
-import Button from '@/components/Button.vue'
+import { reactive, ref } from 'vue'
+import Header from '@/components/HeaderComponent.vue'
+import Button from '@/components/ButtonComponent.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useAnalysisStore } from '@/stores/analysis'
-import type { Analysis, CreateAnalysis } from '@/types/analysis'
+import type { CreateAnalysis } from '@/types/analysis'
 import { useRouter } from 'vue-router'
 import { useDropZone } from '@vueuse/core'
 
@@ -59,7 +59,7 @@ async function createAnalysis() {
     <div class="flex flex-col gap-3">
       <div
         v-if="analysisToCreate.resume == null"
-        class="w-full h-56 flex flex-col justify-center items-center border-dashed border-2 bg-gray-50  border-[#CFDBE8] border-blue-200 hover:bg-sky-50 duration-200 rounded-lg"
+        class="w-full h-56 flex flex-col justify-center items-center border-dashed border-2 bg-gray-50 border-[#CFDBE8] border-blue-200 hover:bg-sky-50 duration-200 rounded-lg"
         ref="dropZoneRef"
       >
         <h2 class="text-[#0D141C] text-xl font-bold">Drag and drop your resume here</h2>
@@ -89,16 +89,23 @@ async function createAnalysis() {
         class="w-full h-56 flex flex-col justify-start items-start border-[#CFDBE8] rounded-lg"
         ref="dropZoneRef"
       >
-        <h2 class="text-[#0D141C] text-xl font-semibold  ml-2 mt-2">Job description here (In Progress...)</h2>
-          <!-- <input
+        <h2 class="text-[#0D141C] text-xl font-semibold ml-2 mt-2">
+          Job description here (In Progress...)
+        </h2>
+        <!-- <input
             type="text"
             class="text-[#0D141C] w-full h-full"
             placeholder="click"
             v-model="analysisToCreate.description"
           /> -->
-          <textarea class="w-full h-full border border-gray-400" name="" id="" v-model="analysisToCreate.description"> </textarea>
+        <textarea
+          class="w-full h-full border border-gray-400"
+          name=""
+          id=""
+          v-model="analysisToCreate.description"
+        >
+        </textarea>
       </div>
-
 
       <div class="self-center">
         <Button type="primary" to="" text="Analyze" :block="false" @click="createAnalysis"></Button>

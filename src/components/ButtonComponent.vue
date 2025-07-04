@@ -15,10 +15,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  block:{
+  block: {
     type: Boolean,
     default: false,
-  }
+  },
 })
 
 const router = useRouter()
@@ -29,9 +29,8 @@ const buttonClass = computed(() =>
       ? 'bg-[#0D80F2] px-7 py-3 rounded-lg font-semibold text-sm text-[#F7FAFC] hover:cursor-pointer active:scale-90 ease-out duration-300'
       : 'bg-[#E8EDF5] px-7 py-3 rounded-lg font-semibold text-sm text-[#0D141C] hover:cursor-pointer active:scale-90 ease-out duration-300',
     props.block == true ? 'w-full' : '',
-  ].join(' ')
+  ].join(' '),
 )
-
 
 function handleClick() {
   if (props.to) {
