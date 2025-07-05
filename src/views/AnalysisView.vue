@@ -54,6 +54,12 @@ onMounted(() => {
       <ul v-for="strength in JSON.parse(analysisStore.analysis.strengths)">
         <li>{{ strength }}</li>
       </ul>
+      <h2 class="font-bold text-2xl text-[#0D141C]">Weaknesses</h2>
+      <ul v-for="weak in JSON.parse(analysisStore.analysis.weaknesses)">
+        <li>{{ weak }}</li>
+      </ul>
+      <h2 class="font-bold text-2xl text-[#0D141C]">Overview</h2>
+      {{ analysisStore.analysis.overview }}
     </div>
   </div>
 </template>
