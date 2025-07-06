@@ -3,13 +3,13 @@ import { onMounted, computed } from 'vue'
 import Header from '@/components/HeaderComponent.vue'
 import Button from '@/components/ButtonComponent.vue'
 import { useAnalysisStore } from '@/stores/analysis'
-import analysis from '@/services/analysis';
+import analysis from '@/services/analysis'
 
 const props = defineProps<{ id: string | number }>()
 const analysisStore = useAnalysisStore()
 
 const compatibilityScore = computed(() =>
-  analysisStore.analysis ? (analysisStore.analysis.score * 100) : 0,
+  analysisStore.analysis ? analysisStore.analysis.score * 100 : 0,
 )
 
 const progressBarColor = computed(() => {
@@ -21,7 +21,7 @@ const progressBarColor = computed(() => {
 })
 
 onMounted(() => {
- analysisStore.getAnalysisById(props.id)
+  analysisStore.getAnalysisById(props.id)
 })
 </script>
 
@@ -49,7 +49,10 @@ onMounted(() => {
         Review the compatibility analysis between your resume and the job description.
       </p>
     </div>
-    <div class="flex flex-col gap-3" v-if="analysisStore.analysis && analysisStore.analysis.strengths">
+    <div
+      class="flex flex-col gap-3"
+      v-if="analysisStore.analysis && analysisStore.analysis.strengths"
+    >
       <h2 class="font-bold text-2xl text-[#0D141C]">Strengths</h2>
       <ul v-for="strength in JSON.parse(analysisStore.analysis.strengths)">
         <li>{{ strength }}</li>
@@ -60,6 +63,10 @@ onMounted(() => {
       </ul>
       <h2 class="font-bold text-2xl text-[#0D141C]">Overview</h2>
       {{ analysisStore.analysis.overview }}
+      <h2 class="font-bold text-2xl text-[#0D141C]">Job Desc</h2>
+      <div class="b-1 rounded-xl border border-[#CFDBE8] p-8">
+        <p>{{ analysisStore.analysis.jobDescription }}</p>
+      </div>
     </div>
   </div>
 </template>
